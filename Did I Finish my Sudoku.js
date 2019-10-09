@@ -1,24 +1,24 @@
 function doneOrNot(board){
-  let rowMap = [], columnMap = [], regionMap = []
+  let rowMap = {}, columnMap = {}, regionMap = {}
   //your code here
   for(let i = 0;i < 9;i++) {
-    rowMap[i] = {}
-    columnMap[i] = {}
-    regionMap[i] = {}
     for(let j = 0;j < 9;j++) {
-      if(rowMap[i][board[i][j]] || columnMap[i][board[j][i]]) {
+      if(rowMap[board[i][j]] || columnMap[board[j][i]]) {
         return 'Try again!'
       } else {
-        rowMap[i][board[i][j]] = true
-        columnMap[i][board[j][i]] = true
+        rowMap[board[i][j]] = true
+        columnMap[board[j][i]] = true
       }
       // 判断数独每一块是否符合规则 i从0=>8，共9块: 
-      if(regionMap[i][board[(i%3)*(j-j%3)/3][j%3+(j-j%3)/3]]) {
+      if(regionMap[board[(i%3)*(j-j%3)/3][j%3+(j-j%3)/3]]) {
         return 'Try again!'
       } else {
-        regionMap[i][board[i*(j-j%3)/3][j%3]] = true
+        regionMap[board[i*(j-j%3)/3][j%3]] = true
       }
     }
+    rowMap = {}
+    columnMap = {}
+    regionMap = {}
   }
   return 'Finished!'
 
