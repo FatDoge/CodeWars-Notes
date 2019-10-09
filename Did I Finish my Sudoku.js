@@ -2,33 +2,37 @@ function doneOrNot(board){
   let rowMap = [], columnMap = [], regionMap = []
   //your code here
   for(let i = 0;i < 9;i++) {
+    rowMap[i] = {}
+    columnMap[i] = {}
+    regionMap[i] = {}
     for(let j = 0;j < 9;j++) {
-      if(rowMap[i] && rowMap[i][board[i][j]]) {
+      if(rowMap[i][board[i][j]]) {
         return 'Try again!'
       } else {
-        rowMap[i] = {}
         rowMap[i][board[i][j]] = true
       }
 
-      if(columnMap[j] && columnMap[j][board[j][i]]) {
+      if(columnMap[i][board[j][i]]) {
         return 'Try again!'
       } else {
-        columnMap[j] = {}
-        columnMap[j][board[j][i]] = true
+        columnMap[i][board[j][i]] = true
       }
 
-      // 判断数独每一块是否符合规则 i从0=>8，共9块
-      if(regionMap[i] && regionMap[i][board[i*3+j%3][i*3+j%3]]) {
+      // 判断数独每一块是否符合规则 i从0=>8，共9块: 
+      if(regionMap[i][board[(i%3)*(j-j%3)/3][j%3+(j-j%3)/3]]) {
         return 'Try again!'
       } else {
-        regionMap[i] = {}
-        regionMap[i][board[i*3+j%3][j%3]] = true
+        regionMap[i][board[i*(j-j%3)/3][j%3]] = true
       }
+
+      // if(regionMap[(i%3)*3+j%3] && regionMap[(i%3)*3+j%3][board[i][j]]) {
+      //   return 'Try again!'
+      // } else {
+      //   regionMap[(i%3)*3+j%3] = {}
+      //   regionMap[i%3*3+j%3][board[i][j]] = true
+      // }
 
     }
-    rowMap = []
-    columnMap = []
-    regionMap = []
   }
   return 'Finished!'
 
