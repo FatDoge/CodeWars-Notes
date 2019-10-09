@@ -10,10 +10,10 @@ function doneOrNot(board){
         columnMap[board[j][i]] = true
       }
       // 判断数独每一块是否符合规则 i从0=>8，共9块: 
-      if(regionMap[board[(i%3)*(j-j%3)/3][j%3+(j-j%3)/3]]) {
+      if(regionMap[board[(i%3)*3+(j-j%3)/3][(i%3)*3+j%3]]) {
         return 'Try again!'
       } else {
-        regionMap[board[i*(j-j%3)/3][j%3]] = true
+        regionMap[board[(i%3)*3+(j-j%3)/3][(i%3)*3+j%3]] = true
       }
     }
     rowMap = {}
